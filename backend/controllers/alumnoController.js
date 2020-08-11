@@ -7,6 +7,8 @@ function guardar(req, res) {
   alumno.nombre = req.body.nombre;
   alumno.rut = req.body.rut;
 
+  alumno.rut = alumno.rut.replace(/[.-]+/g, '');
+
   Alumno.findOne({
     rut: alumno.rut
   }).exec((err, alum) => {
@@ -99,7 +101,7 @@ function eliminar(req, res) {
       Alumno.deleteOne({
         rut: rut
       }, (err, AlumnoDeleted) => {
-        if (err || AlumnoDeleted) {
+        if (err || !AlumnoDeleted) {
           return res.status(400).send({
             mensaje: 'El alumno no se pudo eliminar',
           })

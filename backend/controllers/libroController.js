@@ -52,6 +52,45 @@ function libro(req, res) {
   })
 }
 
+function actualizar(req, res) {
+  let codigo = req.params.codigo;
+
+  Libro.findOne({
+    codigo: codigo
+  }).exec((err, libro) => {
+    if (err || !libro) {
+      return res.status(400).send({
+        mensaje: 'No se encuentra un libro con este codigo'
+      })
+    } else {
+      var actualizar = {
+        titulo: req.body.titulo,
+        codigo: req.body.codigo,
+        autor: req.body.autor,
+        idioma: req.body.idioma
+      }
+
+      Libro.updateOne({
+        codigo: codigo
+      }, actualizar, {
+        new: true
+      }, (err, Libroupdated) => {
+        if (err || !Libroupdated) {
+          return res.status(400).send({
+            mensaje: 'No se pudo actualizar el libro'
+          })
+        } else {
+          return res.status(200).send({
+            mensaje: 'Los datos del libro se actualizaron correctamente',
+            libro: Libroupdated
+          })
+        }
+
+      })
+    }
+  })
+}
+
 function eliminar(req, res) {
   let codigo = req.params.codigo
 
@@ -83,5 +122,6 @@ function eliminar(req, res) {
 module.exports = {
   guardar,
   libro,
+  actualizar,
   eliminar
 }
