@@ -26,7 +26,7 @@ const usuarioRoutes = require('./routes/usuarioRoutes');
 
 app.use('/libros-api', cors(), auth.isAuth, libroRoutes);
 app.use('/alumnos-api', cors(), auth.isAuth, alumnoRoutes);
-app.use('/prestamos-api', cors(), auth.isAuth, prestamoRoutes);
+app.use('/prestamos-api', cors(), prestamoRoutes);
 app.use('/api', cors(), prestamoRoutes);
 
 mongoose.connect('mongodb://localhost:27017/biblioteca', {
