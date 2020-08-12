@@ -124,13 +124,13 @@ function busqueda(req, res) {
             }).exec((err, prestamos) => {
 
               if (err || !prestamos) {
-                return res.status(400).sned({
+                return res.status(400).send({
                   mensaje: 'No hemos podido relaizar la busqueda'
                 })
 
               } else {
 
-                return res.status(200).sned({
+                return res.status(200).send({
                   prestamos: prestamos
                 })
               }
@@ -162,13 +162,13 @@ function busqueda(req, res) {
           }).exec((err, prestamos) => {
 
             if (err || !prestamos) {
-              return res.status(400).sned({
+              return res.status(400).send({
                 mensaje: 'No hemos podido relaizar la busqueda'
               })
 
             } else {
 
-              return res.status(200).sned({
+              return res.status(200).send({
                 prestamos: prestamos
               })
             }
@@ -191,13 +191,13 @@ function busqueda(req, res) {
           }).exec((err, prestamos) => {
 
             if (err || !prestamos) {
-              return res.status(400).sned({
+              return res.status(400).send({
                 mensaje: 'No hemos podido relaizar la busqueda'
               })
 
             } else {
 
-              return res.status(200).sned({
+              return res.status(200).send({
                 prestamos: prestamos
               })
             }
