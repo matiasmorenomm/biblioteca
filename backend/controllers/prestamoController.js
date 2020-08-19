@@ -96,7 +96,7 @@ function busqueda(req, res) {
           } else {
             Prestamo.find({
               fecha_devolucion: null,
-              libro: libro._id,
+              libros: libro._id,
               alumno: alumno._id
             }).populate('libros').populate('alumno').exec((err, prestamos) => {
 
@@ -164,7 +164,7 @@ function busqueda(req, res) {
         } else {
           Prestamo.find({
             fecha_devolucion: null,
-            libro: libro._id
+            libros: libro._id
           }).populate('libros').populate('alumno').exec((err, prestamos) => {
 
             if (err || !prestamos) {
@@ -204,20 +204,23 @@ function reporteLibros(req, res) {
       var cont = 0;
       libros.forEach((libro) => {
         Prestamo.findOne({
-          libro: libro._id,
+          libros: libro._id,
           fecha_devolucion: null
         }).exec((err, prestamo) => {
           if (prestamo) {
             cont++;
-          } else {
-            cont = cont;
-          }
+          } 
         })
       })
-      var disponibles = libros.length - cont;
-      return res.status(200).send({
+
+      setTimeout(() => {
+        var disponibles = libros.length - cont;
+        return res.status(200).send({
         disponibles: disponibles
       })
+      }, 100);
+
+      
     }
   })
 }

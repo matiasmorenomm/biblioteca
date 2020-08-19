@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -50,6 +50,17 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignIn() {
+
+  useEffect(() => {
+    cargar();
+  }, []);
+  
+  const cargar = async() =>{
+    if(localStorage.getItem('recordar')){
+      window.location = '/home';
+    }
+  }
+  
   const { register, handleSubmit } = useForm();
   const onSubmit = data => {
 
@@ -67,6 +78,13 @@ export default function SignIn() {
       response => {
         if(response.status === 200){
           localStorage.setItem('Token_react', response.data.token);
+          if(data.recordar == "remember") {
+            localStorage.setItem('recordar', data.recordar);
+          }else{
+            if(localStorage.getItem('recordar')){
+              localStorage.removeItem('recordar');
+            }
+          }
           window.location = '/home'
         }else{
           Swal.fire({
@@ -126,7 +144,7 @@ export default function SignIn() {
             inputRef={register}
           />
           <FormControlLabel
-            control={<Checkbox value="remember" color="primary" />}
+            control={<Checkbox value="remember" name="recordar" color="primary" inputRef={register} />}
             label="Recuerdame"
           />
           <Button

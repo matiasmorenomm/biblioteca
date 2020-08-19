@@ -12,6 +12,7 @@ import Alumnos from './views/alumnos/Alumnos';
 import Prestamos from './views/prestamos/Prestamos';
 import EditarAlumno from './views/alumnos/EditarAlumno';
 import EditarLibro from './views/libros/EditarLibro';
+import Reporte from './views/prestamos/Reporte';
 import {
   BrowserRouter as Router,
   Switch,
@@ -39,6 +40,7 @@ function App() {
       <Route path="/prestamo" exact component={props => <Auth {...props} Component={Prestamo} />} />
       <Route path="/prestamos" exact component={props => <Auth {...props} Component={Prestamos} />} />
       <Route path="/checkout" exact component={props => <Auth {...props} Component={Checkout} />} />
+      <Route path="/reporte" exact component={props => <Auth {...props} Component={Reporte} />} />
       </Switch>
   </Router>
   );
