@@ -77,7 +77,6 @@ export default function Prestamos() {
     const { data } = await axios.get("http://127.0.0.1:5000/prestamos-api/prestamosA");
     /* setItem es la funcion asignada para cambiar el valor de item */
     setItem(data.prestamos);
-    console.log(data.prestamos)
     return null;
   }
 
@@ -175,7 +174,11 @@ export default function Prestamos() {
             <TableRow>
               <TableCell align="left">{sele.alumno.nombre}</TableCell>
               <TableCell align="left">{sele.alumno.rut}</TableCell>
-              <TableCell align="left">{sele.libro.titulo}</TableCell>
+              <TableCell align="left">{sele.libros.map((ti) => (
+                <Typography>
+                  {ti.titulo}
+                </Typography>
+              ))}</TableCell>
               <TableCell align="left">{sele.fecha}</TableCell>
               <TableCell align="left">{sele.fecha_programada}</TableCell>
               <TableCell align="left">

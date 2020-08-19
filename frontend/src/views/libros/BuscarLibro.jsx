@@ -67,10 +67,13 @@ export default function BuscarLibro(){
     }
   }
 
+  
+
 
 const sele = (parameter) => (event) => {
 
     let arrr = [];
+    let cod = [];
 
     arrr = seleccion.slice();
 
@@ -78,7 +81,13 @@ const sele = (parameter) => (event) => {
 
     setSeleccion(arrr);
 
-    localStorage.setItem('libros_prestamo', JSON.stringify(arrr));
+    arrr.forEach((ar) => {
+      cod.push(ar._id)
+      
+    })
+
+    localStorage.setItem('libros_prestamo', JSON.stringify(cod));
+    localStorage.setItem('libros', JSON.stringify(arrr));
 
     return null;
 }
@@ -86,14 +95,22 @@ const sele = (parameter) => (event) => {
 const elim = (parameter) => (event) => {
 
   let arrr = [];
+  let cod = [];
 
   arrr = seleccion.slice();
+
+  cod.splice(parameter._id, 1);
 
   arrr.splice(parameter, 1);
 
   setSeleccion(arrr);
 
-  localStorage.setItem('libros_prestamo', JSON.stringify(arrr));
+  arrr.forEach((ar) => {
+    cod.push(ar._id)
+  })
+
+  localStorage.setItem('libros_prestamo', JSON.stringify(cod));
+  localStorage.setItem('libros', JSON.stringify(arrr));
 
   return null;
 }

@@ -12,6 +12,8 @@ import Typography from '@material-ui/core/Typography';
 import BuscarLibro from './libros/BuscarLibro';
 import BuscarAlumno from './alumnos/BuscarAlumno';
 import ConfirmacionPrestamo from './prestamos/ConfirmacionPrestamo';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 function Copyright() {
   return (
@@ -92,18 +94,39 @@ export default function Checkout() {
 
     var presta = new Object();
 
-    presta.fecha_devolucion = fechaa;
-    presta.alumno = al[0];
-    presta.libros = lib;
+    presta.fecha_programada = fechaa;
+    presta.alumno = al[0]._id;
+    presta.libro = lib;
 
-    console.log(presta);
+    axios
+    .post("http://127.0.0.1:5000/prestamos-api/prestamo", presta)
+    .then(
+      response => {
+        if(response.status === 200) {
+          setActiveStep(activeStep + 1);
+        }else{
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: response.data.mensaje,
+          })
+        }
+      }
+    )
+    .catch((error) => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: error.response.data.mensaje,
+      })
+    })
   }
 
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
-
     if( activeStep === steps.length - 1 ) {
       prestamo();
+    }else{
+      setActiveStep(activeStep + 1);
     }
   };
 
@@ -131,11 +154,10 @@ export default function Checkout() {
             {activeStep === steps.length ? (
               <React.Fragment>
                 <Typography variant="h5" gutterBottom>
-                  Thank you for your order.
+                  Su prestamo se realizo de forma correcta
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order confirmation, and will
-                  send you an update when your order has shipped.
+                  El prestamo ya se encuentra registrado en el sistema, recuerde devolver los libros en la fecha estima para asi no sufrir sanciones
                 </Typography>
               </React.Fragment>
             ) : (

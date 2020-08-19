@@ -24,7 +24,7 @@ const useStyles = makeStyles((theme) => ({
 export default function Review() {
 
   const al =  JSON.parse(localStorage.getItem('alumno_prestamo'));
-  const lib =  JSON.parse(localStorage.getItem('libros_prestamo'));
+  const lib =  JSON.parse(localStorage.getItem('libros'));
 
   const [libros] = useState(lib);
   const [alumno] = useState(al);
