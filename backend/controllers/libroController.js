@@ -46,7 +46,7 @@ function libro(req, res) {
       })
     } else {
       return res.status(200).send({
-        libro: libro
+        libro: lib
       })
     }
   })
@@ -79,8 +79,8 @@ function actualizar(req, res) {
       })
     } else {
       var actualizar = {
+        codigo: codigo,
         titulo: req.body.titulo,
-        codigo: req.body.codigo,
         autor: req.body.autor,
         idioma: req.body.idioma
       }

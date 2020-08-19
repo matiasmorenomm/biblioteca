@@ -3,6 +3,7 @@
 var Usuario = require('../models/usuarioModel');
 const bcrypt = require('bcrypt-nodejs');
 const jwt = require('jsonwebtoken');
+var nodemailer = require('nodemailer');
 
 function guardar(req, res) {
   let usuario = new Usuario()
@@ -26,6 +27,7 @@ function guardar(req, res) {
             mensaje: 'El usuario no se ha podido registrar'
           })
         } else {
+          correo(usuarioStore);
           return res.status(200).send({
             mensaje: 'El usuario se ha registrado de forma exitosa',
             usuario: usuarioStore
@@ -63,9 +65,34 @@ function login(req, res) {
         }
       })
     }
-
-
   })
+}
+
+function correo(usuario){
+  var transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+      user: 'biblio1701@gmail.com',
+      pass: 'pmftzqdhgsatcchk'
+    }
+  });
+
+  var mensaje = `Hola, Tu cuenta ha sido creada de forma exitosa tus credenciales son <b> Correo:${usuario.email} </b>, Nombre:${usuario.nombre}, Apellidp:${usuario.apellido} ` ;
+
+  var mailOptions = {
+    from: 'biblio1701@gmail.com',
+    to: usuario.email,
+    subject: 'Credenciales Sistema de Biblioteca',
+    text: mensaje
+  };
+
+  transporter.sendMail(mailOptions, function(error, info){
+    if (error) {
+      console.log(error);
+    } else {
+      console.log('Email enviado: ' + info.response);
+    }
+  });
 }
 
 module.exports = {

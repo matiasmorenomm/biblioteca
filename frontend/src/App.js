@@ -11,6 +11,8 @@ import Alumno from './views/alumnos/NuevoAlumno';
 import Alumnos from './views/alumnos/Alumnos';
 import Prestamos from './views/prestamos/Prestamos';
 import PrestamosA from './views/prestamos/PrestamosA';
+import EditarAlumno from './views/alumnos/EditarAlumno';
+import EditarLibro from './views/libros/EditarLibro';
 import {
   BrowserRouter as Router,
   Switch,
@@ -27,11 +29,17 @@ function App() {
       <Route path="/home">
         <Inicio />
       </Route>
+      <Route path="/libro/:codigo">
+        <EditarLibro />
+      </Route>
       <Route path="/libro" exact>
         <Libro />
       </Route>
       <Route path="/libros" exact>
         <Libros />
+      </Route>
+      <Route path="/alumno/:rut">
+        <EditarAlumno />
       </Route>
       <Route path="/alumno" exact>
         <Alumno />

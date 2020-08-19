@@ -15,7 +15,6 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import Container from '@material-ui/core/Container';
-import Checkbox from '@material-ui/core/Checkbox';
 
 const useStyles = makeStyles({
   table: {

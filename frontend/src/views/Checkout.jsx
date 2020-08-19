@@ -85,8 +85,26 @@ export default function Checkout() {
   const classes = useStyles();
   const [activeStep, setActiveStep] = React.useState(0);
 
+  const prestamo = () => {
+    const al =  JSON.parse(localStorage.getItem('alumno_prestamo'));
+    const lib =  JSON.parse(localStorage.getItem('libros_prestamo'));
+    const fechaa =  JSON.parse(localStorage.getItem('fecha_prestamo'));
+
+    var presta = new Object();
+
+    presta.fecha_devolucion = fechaa;
+    presta.alumno = al[0];
+    presta.libros = lib;
+
+    console.log(presta);
+  }
+
   const handleNext = () => {
     setActiveStep(activeStep + 1);
+
+    if( activeStep === steps.length - 1 ) {
+      prestamo();
+    }
   };
 
   const handleBack = () => {

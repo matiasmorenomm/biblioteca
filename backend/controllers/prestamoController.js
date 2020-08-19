@@ -6,52 +6,29 @@ var Libro = require('../models/libroModel');
 function registrarPrestamo(req, res) {
   let prestamo = new Prestamo();
 
-  prestamo.libro = req.body.libro;
+  prestamo.libros = req.body.libro;
   prestamo.alumno = req.body.alumno;
   prestamo.fecha_programada = req.body.fecha_programada
 
   /* Validar si existe el libro */
-  Libro.findOne({
-    _id: prestamo.libro
-  }).exec((err, lib) => {
-    if (err || !lib) {
+  Alumno.findOne({
+    _id: prestamo.alumno
+  }).exec((err, alum) => {
+    if (err || !alum) {
       return res.status(400).send({
-        mensaje: 'El libro no existe'
+        mensaje: 'El alumno no existe'
       })
     } else {
-      /* Validar si el libro se encuentra en prestamo */
-      Prestamo.findOne({
-        libro: libro,
-        fecha_devolucion: null
-      }).exec((err, pr) => {
-        if (err || !pr) {
-          /* Validar si existe el alumno */
-          Alumno.findOne({
-            _id: prestamo.alumno
-          }).exec((err, alum) => {
-            if (err || !alum) {
-              return res.status(400).send({
-                mensaje: 'El alumno no existe'
-              })
-            } else {
-              /* Registrar el prestamo */
-              prestamo.save((err, prestamoStore) => {
-                if (err || !prestamoStore) {
-                  return res.status(400).send({
-                    mensaje: 'El prestamo no se pudo registrar'
-                  })
-                } else {
-                  return res.status(200).send({
-                    mensaje: 'El prestamo se registro de forma exitosa',
-                    prestamo: prestamoStore
-                  })
-                }
-              })
-            }
+      /* Registrar el prestamo */
+      prestamo.save((err, prestamoStore) => {
+        if (err || !prestamoStore) {
+          return res.status(400).send({
+            mensaje: 'El prestamo no se pudo registrar'
           })
         } else {
-          return res.status(400).send({
-            mensaje: 'Este libro ya se encuentra en un prestamo'
+          return res.status(200).send({
+            mensaje: 'El prestamo se registro de forma exitosa',
+            prestamo: prestamoStore
           })
         }
       })
@@ -121,11 +98,11 @@ function busqueda(req, res) {
               fecha_devolucion: null,
               libro: libro._id,
               alumno: alumno._id
-            }).exec((err, prestamos) => {
+            }).populate('libros').populate('alumno').exec((err, prestamos) => {
 
               if (err || !prestamos) {
                 return res.status(400).send({
-                  mensaje: 'No hemos podido relaizar la busqueda'
+                  mensaje: 'No hemos podido realizar la busqueda'
                 })
 
               } else {
@@ -159,7 +136,7 @@ function busqueda(req, res) {
           Prestamo.find({
             fecha_devolucion: null,
             alumno: alumno._id
-          }).exec((err, prestamos) => {
+          }).populate('libros').populate('alumno').exec((err, prestamos) => {
 
             if (err || !prestamos) {
               return res.status(400).send({
@@ -188,7 +165,7 @@ function busqueda(req, res) {
           Prestamo.find({
             fecha_devolucion: null,
             libro: libro._id
-          }).exec((err, prestamos) => {
+          }).populate('libros').populate('alumno').exec((err, prestamos) => {
 
             if (err || !prestamos) {
               return res.status(400).send({
@@ -249,7 +226,7 @@ function prestamosA(req, res) {
 
   Prestamo.find({
     fecha_devolucion: null,
-  }).exec((err, prestamos) => {
+  }).populate('alumno').populate('libros').exec((err, prestamos) => {
     if (err || !prestamos) {
       return res.status(400).send({
         mensaje: 'No existen prestamos'

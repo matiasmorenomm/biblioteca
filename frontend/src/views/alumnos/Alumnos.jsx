@@ -14,6 +14,7 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Swal from 'sweetalert2';
+import { Link } from 'react-router-dom';
 
 
 const useStyles = makeStyles({
@@ -97,9 +98,11 @@ export default function Alumnos() {
               <TableCell align="left">{sele.nombre}</TableCell>
               <TableCell align="left">{sele.rut}</TableCell>
               <TableCell align="left">
-                <Button variant="outlined" color="primari" >
+              <Link to={`/alumno/${sele.rut}`}>
+              <Button variant="outlined" color="primari" >
                   Actualizar
                 </Button>
+              </Link>
               </TableCell>
               <TableCell align="left">
                 <Button variant="outlined" color="secondary" onClick={elim(sele.rut)} >

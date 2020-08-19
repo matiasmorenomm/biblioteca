@@ -187,7 +187,7 @@ const elim = (parameter) => (event) => {
             <TableCell align="left">Titulo</TableCell>
             <TableCell align="left">Autor</TableCell>
             <TableCell align="left">Año</TableCell>
-            <TableCell align="left">Selecionar</TableCell>
+            <TableCell align="left">Eliminar</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
