@@ -24,10 +24,10 @@ const alumnoRoutes = require('./routes/alumnoRoutes');
 const prestamoRoutes = require('./routes/prestamoRoutes');
 const usuarioRoutes = require('./routes/usuarioRoutes');
 
-app.use('/libros-api', cors(), auth.isAuth, libroRoutes);
+app.use('/libros-api', cors(), libroRoutes);
 app.use('/alumnos-api', cors(), auth.isAuth, alumnoRoutes);
 app.use('/prestamos-api', cors(), prestamoRoutes);
-app.use('/api', cors(), prestamoRoutes);
+app.use('/api', cors(), usuarioRoutes);
 
 mongoose.connect('mongodb://localhost:27017/biblioteca', {
   useNewUrlParser: true

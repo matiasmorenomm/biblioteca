@@ -115,9 +115,78 @@ function eliminar(req, res) {
   });
 }
 
+function alumnos(req, res) {
+
+  Alumno.find().exec((err, alumnos) => {
+    if (err || !alumnos) {
+      return res.status(400).send({
+        mensaje: 'No existen alumnos'
+      })
+    } else {
+      return res.status(200).send({
+        alumnos: alumnos
+      })
+    }
+  })
+}
+
+function busqueda(req, res) {
+  let nombre = req.body.nombre;
+  let rut = req.body.rut;
+
+  if(rut && nombre) {
+    Alumno.find({
+      rut: rut,
+      nombre: nombre
+    }).exec((err, alum) => {
+      if(err || !alum) {
+        return res.status(400).semd({
+          mensaje: 'El alumno que busca no existe'
+        })
+      }else{
+        return res.status(200).send({
+          alumno: alum
+        })
+      }
+    })
+  }else{
+    if(rut) {
+      Alumno.find({
+        rut: rut
+      }).exec((err, alum) => {
+        if(err || !alum) {
+          return res.status(400).semd({
+            mensaje: 'El alumno que busca no existe'
+          })
+        }else{
+          return res.status(200).send({
+            alumno: alum
+          })
+        }
+      })
+    }else{
+      Alumno.find({
+        nombre: nombre
+      }).exec((err, alum) => {
+        if(err || !alum) {
+          return res.status(400).semd({
+            mensaje: 'El alumno que busca no existe'
+          })
+        }else{
+          return res.status(200).send({
+            alumno: alum
+          })
+        }
+      })
+    }
+  }
+}
+
 module.exports = {
   eliminar,
   actualizar,
   alumno,
+  alumnos,
+  busqueda,
   guardar
 }

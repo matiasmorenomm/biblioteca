@@ -52,6 +52,21 @@ function libro(req, res) {
   })
 }
 
+function libros(req, res) {
+
+  Libro.find().exec((err, libros) => {
+    if (err || !libros) {
+      return res.status(400).send({
+        mensaje: 'No existen libros'
+      })
+    } else {
+      return res.status(200).send({
+        libros: libros
+      })
+    }
+  })
+}
+
 function actualizar(req, res) {
   let codigo = req.params.codigo;
 
@@ -119,9 +134,63 @@ function eliminar(req, res) {
   })
 }
 
+function busqueda(req, res) {
+  let titulo = req.body.titulo;
+  let codigo = req.body.codigo;
+
+  if(codigo && titulo) {
+    Libro.find({
+      codigo: codigo,
+      titulo: titulo
+    }).exec((err, lib) => {
+      if(err || !lib) {
+        return res.status(400).semd({
+          mensaje: 'El libro que busca no existe'
+        })
+      }else{
+        return res.status(200).send({
+          libro: lib
+        })
+      }
+    })
+  }else{
+    if(codigo) {
+      Libro.find({
+        codigo: codigo
+      }).exec((err, lib) => {
+        if(err || !lib) {
+          return res.status(400).semd({
+            mensaje: 'El libro que busca no existe'
+          })
+        }else{
+          return res.status(200).send({
+            libro: lib
+          })
+        }
+      })
+    }else{
+      Libro.find({
+        titulo: titulo
+      }).exec((err, lib) => {
+        if(err || !lib) {
+          return res.status(400).semd({
+            mensaje: 'El libro que busca no existe'
+          })
+        }else{
+          return res.status(200).send({
+            libro: lib
+          })
+        }
+      })
+    }
+  }
+}
+
 module.exports = {
   guardar,
   libro,
   actualizar,
-  eliminar
+  eliminar,
+  busqueda,
+  libros
 }

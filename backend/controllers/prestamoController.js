@@ -245,9 +245,45 @@ function reporteLibros(req, res) {
   })
 }
 
+function prestamosA(req, res) {
+
+  Prestamo.find({
+    fecha_devolucion: null,
+  }).exec((err, prestamos) => {
+    if (err || !prestamos) {
+      return res.status(400).send({
+        mensaje: 'No existen prestamos'
+      })
+    } else {
+      return res.status(200).send({
+        prestamos: prestamos
+      })
+    }
+  })
+}
+
+function prestamos(req, res) {
+
+  Prestamo.find().populate('libro').populate('alumno').exec((err, prestamos) => {
+    if (err || !prestamos) {
+      return res.status(400).send({
+        mensaje: 'No existen prestamos'
+      })
+    } else {
+      return res.status(200).send({
+        prestamos: prestamos
+      })
+    }
+  })
+}
+
+
+
 module.exports = {
   registrarPrestamo,
   busqueda,
   devolucion,
+  prestamos,
+  prestamosA,
   reporteLibros
 }
