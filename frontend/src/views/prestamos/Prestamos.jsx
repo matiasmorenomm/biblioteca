@@ -165,6 +165,8 @@ export default function Prestamos() {
             <TableCell align="left">Rut</TableCell>
             <TableCell align="left">Libro</TableCell>
             <TableCell align="left">Fecha Prestamo</TableCell>
+            <TableCell align="left">Fecha Programada</TableCell>
+            <TableCell align="left">Devolucion</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>

@@ -26,8 +26,8 @@ export default function Review() {
   const al =  JSON.parse(localStorage.getItem('alumno_prestamo'));
   const lib =  JSON.parse(localStorage.getItem('libros_prestamo'));
 
-  const [libros, setLibros] = useState(lib);
-  const [alumno, setAlumno] = useState(al);
+  const [libros] = useState(lib);
+  const [alumno] = useState(al);
 
   const classes = useStyles();
 

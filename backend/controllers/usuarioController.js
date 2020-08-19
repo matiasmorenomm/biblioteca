@@ -77,13 +77,20 @@ function correo(usuario){
     }
   });
 
-  var mensaje = `Hola, Tu cuenta ha sido creada de forma exitosa tus credenciales son <b> Correo:${usuario.email} </b>, Nombre:${usuario.nombre}, Apellidp:${usuario.apellido} ` ;
+  var mensaje = `<h1>Bienvenido</h1>
+                 <h3> Tu cuenta ha sido creada de forma exitosa tus credenciales son: </h3>
+                 <br>
+                 <b> Correo: </b> ${usuario.email}  
+                 <br>
+                 <b> Nombre: </b> ${usuario.nombre} 
+                 <br>
+                 <b> Apellidp: </b> ${usuario.apellido} ` ;
 
   var mailOptions = {
     from: 'biblio1701@gmail.com',
     to: usuario.email,
     subject: 'Credenciales Sistema de Biblioteca',
-    text: mensaje
+    html: mensaje
   };
 
   transporter.sendMail(mailOptions, function(error, info){

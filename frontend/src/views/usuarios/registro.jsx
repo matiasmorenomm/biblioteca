@@ -48,7 +48,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export default function SignUp() {
-  const { register, handleSubmit, errors } = useForm();
+  const { register, handleSubmit } = useForm();
   const onSubmit = data => {
 
     if(data.Rpass === data.pass){

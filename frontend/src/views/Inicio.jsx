@@ -79,7 +79,7 @@ const tiers = [
   {
     title: 'Prestamo de libros',
     price: '0',
-    description: [['Realizar prestamo', '/prestamo'], ['Devolucion','/devolucion'], ['Prestamos Activos', '/prestamosA']],
+    description: [['Realizar prestamo', '/prestamo'], ['Devolucion','/devolucion'], ['Prestamos Activos', '/prestamos']],
   },
   {
     title: 'Gestion de alumnos',

@@ -10,7 +10,6 @@ import Libros from './views/libros/Libros';
 import Alumno from './views/alumnos/NuevoAlumno';
 import Alumnos from './views/alumnos/Alumnos';
 import Prestamos from './views/prestamos/Prestamos';
-import PrestamosA from './views/prestamos/PrestamosA';
 import EditarAlumno from './views/alumnos/EditarAlumno';
 import EditarLibro from './views/libros/EditarLibro';
 import {
@@ -18,6 +17,7 @@ import {
   Switch,
   Route
 } from "react-router-dom";
+import Auth from './auth';
 
 function App() {
   return (
@@ -26,42 +26,19 @@ function App() {
       <Route path="/" exact>
         <Login />
       </Route>
-      <Route path="/home">
-        <Inicio />
-      </Route>
-      <Route path="/libro/:codigo">
-        <EditarLibro />
-      </Route>
-      <Route path="/libro" exact>
-        <Libro />
-      </Route>
-      <Route path="/libros" exact>
-        <Libros />
-      </Route>
-      <Route path="/alumno/:rut">
-        <EditarAlumno />
-      </Route>
-      <Route path="/alumno" exact>
-        <Alumno />
-      </Route>
-      <Route path="/alumnos" exact>
-        <Alumnos />
-      </Route>
-      <Route path="/registro" exact>
+      <Route path="/home" component={props => <Auth {...props} Component={Inicio} />} />
+      <Route path="/libro/:codigo" component={props => <Auth {...props} Component={EditarLibro} />} />
+      <Route path="/libro" exact component={props => <Auth {...props} Component={Libro} />} />
+      <Route path="/libros" exact component={props => <Auth {...props} Component={Libros} />} />
+      <Route path="/alumno/:rut" component={props => <Auth {...props} Component={EditarAlumno} />} />
+      <Route path="/alumno" exact component={props => <Auth {...props} Component={Alumno} />} />
+      <Route path="/alumnos" exact component={props => <Auth {...props} Component={Alumnos} />} />
+      <Route path="/registro">
         <Registro />
       </Route>
-      <Route path="/prestamo" exact>
-        <Prestamo />
-      </Route>
-      <Route path="/prestamos" exact>
-        <Prestamos />
-      </Route>
-      <Route path="/prestamosA" exact>
-        <PrestamosA />
-      </Route>
-      <Route path="/checkout" exact>
-        <Checkout />
-      </Route>
+      <Route path="/prestamo" exact component={props => <Auth {...props} Component={Prestamo} />} />
+      <Route path="/prestamos" exact component={props => <Auth {...props} Component={Prestamos} />} />
+      <Route path="/checkout" exact component={props => <Auth {...props} Component={Checkout} />} />
       </Switch>
   </Router>
   );
